@@ -11,3 +11,17 @@ body {
   -webkit-user-select: none;
   box-shadow: 0 0 0 5px rgb(15, 77, 31) inset;
 }
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.comments {
+  padding: 5px 20px;
+  right: 5px;
+  bottom: 5px;
+  position: fixed;
+  text-align: center;
+  background-color: rgba(4, 4, 4, 0.5);
+}
