@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Hedgehogs</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Hedgehogs">
+  <link rel="apple-touch-icon" href="logo.png">
+  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="./css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <h1 class="text-center">Hedgehogs Barrage</h1>
+  <div class="container main">
+    <form class="form-horizontal" style="margin: 16px" role="form" action="/like" method="get" onsubmit="handleSubmit(this); return false;">
+      <div class="form-group">
+        <label class="control-label col-sm-2">いいね</label>
+        <div class="input-group">
+          <button class="btn btn-primary" type="button" onclick="like('thumb')">
+            <i class="fa fa-thumbs-up"></i> Good
+          </button>
+          <button class="btn btn-default" type="button" onclick="like('heart')">
+            <i class="fa fa-heart"></i> Like
+          </button>
+          <button class="btn btn-default" type="button" onclick="like('hedgehog')">
+            🦔 Hedgehog
+          </button>
+        </div>
+      </div>
+      <div id="url" class="form-group" style="display: none">
+        <label class="control-label col-sm-2">Send Image</label>
+        <div class="input-group">
+          <input type="text" name="url" class="form-control" placeholder="Please input image url">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="fa fa-image"></i></button>
+          </span>
+        </div>
+      </div>
+    </form>
+    <form class="form-horizontal" style="margin: 16px" role="form" action="/comment" method="get" onsubmit="if (this.body.value == '') return false; handleSubmit(this); this.body.value = ''; return false;">
+      <div class="form-group">
+        <label class="control-label col-sm-2">コメント</label>
+        <div class="input-group">
+          <input type="text" name="body" maxlength="60" class="form-control" id="comment" placeholder="Please input your comment">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="fa fa-comment"></i></button>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">サイズ</label>
+        <div class="input-group btn-group" data-toggle="buttons">
+          <label class="btn btn-default">
+              <input type="radio" name="size" class="needsclick" value="40"> Small
+          </label>
+          <label class="btn btn-default active">
+            <input type="radio" name="size" class="needsclick" value="56" selected> Medium
+          </label>
+          <label class="btn btn-default">
+            <input type="radio" name="size" class="needsclick" value="72"> Big
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">速度</label>
+        <div class="input-group btn-group" data-toggle="buttons">
+          <label class="btn btn-default">
+            <input type="radio" name="duration" class="needsclick" value="4000"> Slow
+          </label>
+          <label class="btn btn-default active">
+            <input type="radio" name="duration" class="needsclick" value="3000" selected> Medium
+          </label>
+          <label class="btn btn-default">
+            <input type="radio" name="duration" class="needsclick" value="2000"> Fast
+          </label>
+          <label class="btn btn-default">
+            <input type="radio" name="duration" class="needsclick" value="500"> Ultra Fast
+          </label>
+        </div>
+      </div>
+      <div class="colors">
+        <div class="form-group">
+          <label class="control-label col-sm-2">カラー</label>
+          <div class="input-group btn-group" data-toggle="buttons">
+            <label class="btn btn-default black active">
+              <input type="radio" name="color" class="needsclick" value="black" selected> Black
+            </label>
+            <label class="btn btn-default red">
+              <input type="radio" name="color" class="needsclick" value="red"> Red
+            </label>
+            <label class="btn btn-default green">
+              <input type="radio" name="color" class="needsclick" value="green"> Green
+            </label>
+            <br>
+            <label class="btn btn-default blue">
+              <input type="radio" name="color" class="needsclick" value="blue"> Blue
+            </label>
+            <label class="btn btn-default pink">
+              <input type="radio" name="color" class="needsclick" value="pink"> Pink
+            </label>
+            <label class="btn btn-default yellow">
+                <input type="radio" name="color" class="needsclick" value="yellow"> Yellow
+            </label>
+            <label class="btn btn-default white">
+              <input type="radio" name="color" class="needsclick" value="white"> White
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label col-sm-2">簡易入力</label>
+        <div class="input-group btn-group" data-toggle="buttons">
+          <label class="btn btn-default">
+            <input type="button" name="auxiliary" class="needsclick" value="w">
+          </label>
+          <label class="btn btn-default">
+            <input type="button" name="auxiliary" class="needsclick" value="8" selected>
+          </label>
+          <label class="btn btn-default">
+            <input type="button" name="auxiliary" class="needsclick" value="😂">
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class=container>
+    <a href="https://twitter.com/intent/tweet?button_hashtag=hedgehogs&ref_src=twsrc%5Etfw" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+  </div>
+  <div class="container notes">
+    <h4 class="title">注意事項</h4>
+    <p>・無意味な言葉の羅列による荒し行為</p>
+    <p>・内容と関係がない書き込み、冷やかし</p>
+    <p>・暴言、侮辱、不適切な日本語</p>
+  </div>
+  <div class="footer">
+    <div class="container text-right">
+      <!-- hedgehogs © 2019 @kanekenl -->
+    </div>
+  </div>
+
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  <script src="./js/jquery-2.1.3.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/fastclick.min.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>

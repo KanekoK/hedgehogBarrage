@@ -1,0 +1,71 @@
+body {
+  background: #121328;
+  color: #e0e0e0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  background-image: url('../img/hedgehogs-back.png');
+  background-repeat: no-repeat;
+  background-size: 70%;
+  background-attachment: fixed;
+  background-position: right bottom;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.05);
+}
+input[type="button"] {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+}
+
+.form-group .input-group-btn .btn {
+  padding: 6px 35px;
+}
+
+.notes {
+  margin-bottom: 30px;
+}
+
+.colors .btn-group label.active.black {
+  background-color: black;
+  color: white;
+}
+
+.colors .btn-group label.active.red {
+  background-color: red;
+  color: white;
+}
+
+.colors .btn-group label.active.green {
+  background-color: green;
+  color: white;
+}
+
+.colors .btn-group label.active.blue {
+  background-color: blue;
+  color: white;
+}
+
+.colors .btn-group label.active.pink {
+  background-color: pink;
+  color: black;
+}
+
+.colors .btn-group label.active.yellow {
+  background-color: yellow;
+  color: black;
+}
+
+.colors .btn-group label.active.white {
+  background-color: white;
+  color: black;
+}
