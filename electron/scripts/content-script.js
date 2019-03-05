@@ -1,6 +1,7 @@
 /* global chrome, io */
 
 (function () {
+
   // change to your server url
   const SERVER_URL = 'https://hedgehogs.site'
   // const APP_ID = chrome.runtime.id
@@ -8,12 +9,21 @@
 
   let socket = null
 
-  function connect () {
-    if (socket) return
-
-    socket = io.connect(SERVER_URL, { 'forceNew': true })
-    socket.on('comment', handleComment)
-    socket.on('like', handleLike)
+  function connect (comment) {
+    console.log("判定");
+    console.log(Boolean(comment));
+    console.log(socket);
+    console.log(socket && comment);
+    //  コメントありなしでコネクトを切り替える
+    if (!comment) {
+      socket.disconnect();
+      socket = io.connect(SERVER_URL, { 'forceNew': true })
+      socket.on('like', handleLike)
+    } else {
+      socket = io.connect(SERVER_URL, { 'forceNew': true })
+      socket.on('comment', handleComment)
+      socket.on('like', handleLike)
+    }
 
     // console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
   }
@@ -119,7 +129,14 @@
     t.src = url
   }
 
-  connect();
+  let comment = true;
+  $('#comments input[name="comment"]').on('click', function () {
+    let val = $(this).val();
+    comment = (val == 'on' ? true : false);
+
+    connect(comment);
+  });
+  connect(comment);
 
   return {
     connect: connect,
