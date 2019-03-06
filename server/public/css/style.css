@@ -68,6 +68,11 @@ label.btn {
   color: white;
 }
 
+.colors .btn-group label.active.purple {
+  background-color: purple;
+  color: white;
+}
+
 .colors .btn-group label.active.blue {
   background-color: blue;
   color: white;
