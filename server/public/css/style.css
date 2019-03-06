@@ -27,8 +27,18 @@ input[type="button"] {
   appearance: none;
 }
 
-.form-group .input-group-btn .btn {
+label.btn {
+  width: 90px;
+}
+
+.form-group .input-group-btn button[type=submit] {
   padding: 6px 35px;
+  color: #e0e0e0;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.form-group .input-group-btn button[type=submit]:hover {
+  background-color: #2269a6;
 }
 
 .form-group .input-group button img {
@@ -58,6 +68,11 @@ input[type="button"] {
   color: white;
 }
 
+.colors .btn-group label.active.purple {
+  background-color: purple;
+  color: white;
+}
+
 .colors .btn-group label.active.blue {
   background-color: blue;
   color: white;
@@ -76,4 +91,22 @@ input[type="button"] {
 .colors .btn-group label.active.white {
   background-color: white;
   color: black;
+}
+
+/* 要リファクタリング */
+.colors .form-group .top-color-btn .btn:nth-child(-n+4) {
+  margin-bottom: 10px;
+}
+.colors .form-group .top-color-btn .btn:nth-child(4) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.colors .form-group .top-color-btn .btn:nth-child(4) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#comment_form > div.colors label.btn.btn-default.blue {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
