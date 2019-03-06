@@ -28,7 +28,7 @@ input[type="button"] {
 }
 
 label.btn, .icon-btn button {
-  width: 90px;
+  width: 75px;
 }
 
 .form-group .input-group-btn button[type=submit] {
