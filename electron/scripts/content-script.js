@@ -3,26 +3,26 @@
 (function () {
 
   // change to your server url
-  const SERVER_URL = 'https://hedgehogs.site'
+  // const SERVER_URL = 'https://hedgehogs.site'
+  const SERVER_URL = 'http://localhost:2525/'
+
   // const APP_ID = chrome.runtime.id
   // const APP_VERSION = chrome.runtime.getManifest().version
 
   let socket = null
 
   function connect (comment) {
-    console.log("判定");
-    console.log(Boolean(comment));
-    console.log(socket);
-    console.log(socket && comment);
-    //  コメントありなしでコネクトを切り替える
+    //  コメントON/OFFでコネクトを切り替える
     if (!comment) {
       socket.disconnect();
       socket = io.connect(SERVER_URL, { 'forceNew': true })
       socket.on('like', handleLike)
+      socket.on("count",handleLikeCount)
     } else {
       socket = io.connect(SERVER_URL, { 'forceNew': true })
       socket.on('comment', handleComment)
       socket.on('like', handleLike)
+      socket.on("count",handleLikeCount)
     }
 
     // console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
@@ -127,6 +127,14 @@
     })
 
     t.src = url
+  }
+
+
+  function handleLikeCount(count){
+    const heart_count = document.getElementById("heart_count")
+    const good_count = document.getElementById("good_count")
+    heart_count.innerHTML = count.heart_count
+    good_count.innerHTML = count.good_count
   }
 
   let comment = true;
