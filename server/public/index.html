@@ -21,7 +21,7 @@
     <form class="form-horizontal" style="margin: 16px" role="form" action="/like" method="get" onsubmit="handleSubmit(this); return false;">
       <div class="form-group">
         <label class="control-label col-sm-2">いいね</label>
-        <div class="input-group">
+        <div class="input-group icon-btn">
           <button class="btn btn-default" type="button" onclick="like('thumb')">
             <img src="img/thumb30×30.png" alt="Good">
           </button>
@@ -49,7 +49,7 @@
         <div class="input-group">
           <input type="text" name="body" maxlength="60" class="form-control" id="comment" placeholder="Please input your comment">
           <span class="input-group-btn">
-            <button class="btn btn-default" id="submit_btn" type="submit"><i class="fa fa-comment"></i> 送信 </button>
+            <button class="submit-btn btn btn-default" id="submit_btn" type="submit"><i class="fa fa-comment"></i> 送信 </button>
           </span>
         </div>
       </div>

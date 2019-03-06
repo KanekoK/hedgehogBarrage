@@ -27,7 +27,7 @@ input[type="button"] {
   appearance: none;
 }
 
-label.btn {
+label.btn, .icon-btn button {
   width: 75px;
 }
 
@@ -41,8 +41,12 @@ label.btn {
   background-color: #2269a6;
 }
 
+.input-group-btn .submit-btn {
+  font-weight: bold;
+}
+
 .form-group .input-group button img {
-  width: 60%;
+  width: 30%;
 }
 
 .notes {
