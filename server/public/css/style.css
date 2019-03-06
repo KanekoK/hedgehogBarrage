@@ -35,6 +35,10 @@ input[type="button"] {
   margin-bottom: 30px;
 }
 
+.top-color-btn {
+  margin-bottom: 10px;
+}
+
 .colors .btn-group label.active.black {
   background-color: black;
   color: white;
