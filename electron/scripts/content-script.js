@@ -1,6 +1,7 @@
 /* global chrome, io */
 
 (function () {
+
   // change to your server url
   // const SERVER_URL = 'https://hedgehogs.site'
   const SERVER_URL = 'http://localhost:2525/'
@@ -10,13 +11,19 @@
 
   let socket = null
 
-  function connect () {
-    if (socket) return
-
-    socket = io.connect(SERVER_URL, { 'forceNew': true })
-    socket.on('comment', handleComment)
-    socket.on('like', handleLike)
-    socket.on("count",handleLikeCount)
+  function connect (comment) {
+    //  コメントON/OFFでコネクトを切り替える
+    if (!comment) {
+      socket.disconnect();
+      socket = io.connect(SERVER_URL, { 'forceNew': true })
+      socket.on('like', handleLike)
+      socket.on("count",handleLikeCount)
+    } else {
+      socket = io.connect(SERVER_URL, { 'forceNew': true })
+      socket.on('comment', handleComment)
+      socket.on('like', handleLike)
+      socket.on("count",handleLikeCount)
+    }
 
     // console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
   }
@@ -122,6 +129,7 @@
     t.src = url
   }
 
+
   function handleLikeCount(count){
     const heart_count = document.getElementById("heart_count")
     const good_count = document.getElementById("good_count")
@@ -129,7 +137,14 @@
     good_count.innerHTML = count.good_count
   }
 
-  connect();
+  let comment = true;
+  $('#comments input[name="comment"]').on('click', function () {
+    let val = $(this).val();
+    comment = (val == 'on' ? true : false);
+
+    connect(comment);
+  });
+  connect(comment);
 
   return {
     connect: connect,

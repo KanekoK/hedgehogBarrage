@@ -43,13 +43,13 @@
         </div>
       </div>
     </form>
-    <form class="form-horizontal" style="margin: 16px" role="form" action="/comment" method="get" onsubmit="if (this.body.value == '') return false; handleSubmit(this); this.body.value = ''; return false;">
+    <form id="comment_form" class="form-horizontal" style="margin: 16px" role="form" action="/comment" method="get">
       <div class="form-group">
         <label class="control-label col-sm-2">コメント</label>
         <div class="input-group">
           <input type="text" name="body" maxlength="60" class="form-control" id="comment" placeholder="Please input your comment">
           <span class="input-group-btn">
-            <button class="btn btn-default" type="submit"><i class="fa fa-comment"></i></button>
+            <button class="btn btn-default" id="submit_btn" type="submit"><i class="fa fa-comment"></i></button>
           </span>
         </div>
       </div>
@@ -87,7 +87,7 @@
       <div class="colors">
         <div class="form-group">
           <label class="control-label col-sm-2">カラー</label>
-          <div class="input-group btn-group" data-toggle="buttons">
+          <div class="top-color-btn input-group btn-group" data-toggle="buttons">
             <label class="btn btn-default black active">
               <input type="radio" name="color" class="needsclick" value="black" selected> Black
             </label>
@@ -97,7 +97,8 @@
             <label class="btn btn-default green">
               <input type="radio" name="color" class="needsclick" value="green"> Green
             </label>
-            <br>
+          </div>
+          <div class="input-group btn-group" data-toggle="buttons">
             <label class="btn btn-default blue">
               <input type="radio" name="color" class="needsclick" value="blue"> Blue
             </label>

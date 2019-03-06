@@ -6,6 +6,14 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+  <form id="comments" class="comments">
+    <p>Comment</p>
+    <label>ON<input type="radio" name="comment" value="on" checked></label>
+    <label>OFF<input type="radio" name="comment" value="off"></label>
+  </form>
+
+  <script>window.$ = window.jQuery = require('jquery');</script>
   <script src="scripts/socket.io-1.7.3.js"></script>
   <script src="scripts/content-script.js"></script>
   <div>heart:<span id="heart_count"></span></div>

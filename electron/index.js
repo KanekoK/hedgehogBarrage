@@ -5,6 +5,24 @@
 const {app, BrowserWindow} = require('electron');
 let win;
 
+// メニュー
+
+// const editMenu = [
+//   {
+//       label: 'Edit',
+//       submenu: [
+//           {
+//             label: 'Comment ON',
+//             // click: function() { comment = true; }
+//           },
+//           {
+//             label: 'Comment OFF',
+//             // click: function() { comment = false; }
+//           },
+//       ]
+//   }
+// ];
+
 function createWindow () {
 
   win = new BrowserWindow({
@@ -12,11 +30,15 @@ function createWindow () {
     // "itleBarStyle": "hidden",
     "transparent": true,
     "alwaysOnTop": true,
+    "nodeIntegration": false
   });
   // win.setTitle('Hedgehogs');
 
   // デベロッパーツール
-  // win.webContents.openDevTools();
+  win.webContents.openDevTools();
+
+  // const menu = Menu.buildFromTemplate(editMenu);
+  // Menu.setApplicationMenu(menu);
 
   win.loadURL(`file://${__dirname}/index.html`);
 
