@@ -92,3 +92,21 @@ label.btn {
   background-color: white;
   color: black;
 }
+
+/* 要リファクタリング */
+.colors .form-group .top-color-btn .btn:nth-child(-n+4) {
+  margin-bottom: 10px;
+}
+.colors .form-group .top-color-btn .btn:nth-child(4) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.colors .form-group .top-color-btn .btn:nth-child(4) {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+#comment_form > div.colors label.btn.btn-default.blue {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
