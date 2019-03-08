@@ -12,6 +12,10 @@ LT、勉強会の登壇者と聞く側のインタラクティブ性を高める
 ※イメージ図  
 ![demo](https://raw.githubusercontent.com/wiki/KanekoK/hedgehogBarrage/img/hedgehogs.gif)
 
+## アプリのダウンロードページ
+
+https://github.com/KanekoK/hedgehogBarrageApp
+
 ***
 
 ## Hedgehogs Electron
