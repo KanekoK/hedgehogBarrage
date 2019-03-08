@@ -41,7 +41,7 @@ function createWindow () {
   // Menu.setApplicationMenu(menu);
 
   win.loadURL(`file://${__dirname}/index.html`);
-  shortcats()
+  shortcuts()
 
   win.on('closed', () => {
     win = null
@@ -49,8 +49,8 @@ function createWindow () {
 
 }
 
-// shortcats設定
-function shortcats(){
+// shortcuts設定
+function shortcuts(){
   // max_size
   globalShortcut.register('CommandOrControl+F', () => {
     win.maximize()
