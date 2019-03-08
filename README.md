@@ -9,7 +9,7 @@ LT、勉強会の登壇者と聞く側のインタラクティブ性を高める
 透明ブラウザにニコニコ動画のコメントのような形でコメントが画面に流れていきます！
 
 ※イメージ図
-https://hedgehogs.site/img/hedgehogs.gif
+<img src="https://hedgehogs.site/img/hedgehogs.gif" width="100" height="30" alt="" border="0" align="center" hspace="10" vspace="10">
 
 ***
 
