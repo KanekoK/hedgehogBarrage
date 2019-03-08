@@ -70,7 +70,6 @@ app.on('ready', () => {
   // Register a 'CommandOrControl+Y' shortcut listener.
   globalShortcut.register('CommandOrControl+F', () => {
     win.maximize()
-    console.log(win.getBounds())
     // Do stuff when Y and either Command/Control is pressed.
   })
 })
@@ -80,7 +79,6 @@ app.on('ready', () => {
   // Register a 'CommandOrControl+Y' shortcut listener.
   globalShortcut.register('Shift+CommandOrControl+F', () => {
     win.unmaximize()
-    console.log(win.getBounds())
     // Do stuff when Y and either Command/Control is pressed.
   })
 })
