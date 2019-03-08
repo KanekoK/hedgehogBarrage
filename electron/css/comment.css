@@ -1,0 +1,17 @@
+.comment-ctn {
+  float: left;
+  width: 70%;
+  box-shadow: 1px 1px;
+}
+
+.comment-list {
+  float: left;
+  width: 30%;
+  box-shadow: 1px 1px;
+}
+
+.clearfix::after{
+  content: "";
+  display: block;
+  clear: both;
+}
