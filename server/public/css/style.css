@@ -49,6 +49,15 @@ label.btn, .icon-btn button {
   width: 30%;
 }
 
+
+.input-group input{
+  width: 100% ;
+}
+
+.needclick{
+  padding: 0px;
+}
+
 .notes {
   margin-bottom: 30px;
 }
@@ -96,6 +105,10 @@ label.btn, .icon-btn button {
   background-color: white;
   color: black;
 }
+
+/* .input-btn {
+  padding: 10px
+} */
 
 /* 要リファクタリング */
 .colors .form-group .top-color-btn .btn:nth-child(-n+4) {
