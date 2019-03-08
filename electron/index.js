@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const {app, BrowserWindow, globalShortcut} = require('electron');
 let win;
 
@@ -43,12 +41,30 @@ function createWindow () {
   // Menu.setApplicationMenu(menu);
 
   win.loadURL(`file://${__dirname}/index.html`);
+  shortcuts()
 
   win.on('closed', () => {
     win = null
   });
 
 }
+
+// shortcuts設定
+function shortcuts(){
+  // max_size
+  globalShortcut.register('CommandOrControl+F', () => {
+    win.maximize()
+  })
+  // default sizeに戻す
+  globalShortcut.register('Shift+CommandOrControl+F', () => {
+    win.unmaximize()
+  })
+  // show
+  globalShortcut.register('CommandOrControl+S', () => {
+    win.show(); 
+  })
+}
+
 
 app.on('ready', createWindow);
 
@@ -64,33 +80,7 @@ app.on('activate', () => {
   }
 });
 
-// shortcats設定
-// max_size
-app.on('ready', () => {
-  // Register a 'CommandOrControl+Y' shortcut listener.
-  globalShortcut.register('CommandOrControl+F', () => {
-    win.maximize()
-    // Do stuff when Y and either Command/Control is pressed.
-  })
-})
 
-// default sizeに戻す
-app.on('ready', () => {
-  // Register a 'CommandOrControl+Y' shortcut listener.
-  globalShortcut.register('Shift+CommandOrControl+F', () => {
-    win.unmaximize()
-    // Do stuff when Y and either Command/Control is pressed.
-  })
-})
-
-// show window
-app.on('ready', () => {
-  // Register a 'CommandOrControl+Y' shortcut listener.
-  globalShortcut.register('CommandOrControl+S', () => {
-    win.show(); 
-    // Do stuff when Y and either Command/Control is pressed.
-  })
-})
 
 
 
