@@ -33,24 +33,9 @@ app.get('/comment', refererCheck, function (req, res) {
 
 app.get('/like', refererCheck, function (req, res) {
   const msg = extend({}, req.query)
-  console.log(msg.image)
-  if (msg.image=="thumb"){
-    good_count++
-  }
-  if (msg.image=="heart"){
-    heart_count++
-  }
-  // console.log(count)
-  console.log(heart_count)
-  console.log(good_count)
+
   console.log('like: ' + JSON.stringify(msg))
-  var count ={
-    "good_count":good_count,
-    "heart_count":heart_count
-  }
-  console.log(count)
   io.emit('like', msg)
-  io.emit('count',count)
   res.end()
 })
 

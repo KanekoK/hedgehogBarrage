@@ -1,8 +1,10 @@
 'use strict';
 
-const {app, BrowserWindow, Menu} = require('electron');
+const {app, BrowserWindow, Menu, ipcMain} = require('electron');
 let mainWindow;
 let commentWindow;
+
+
 
 // メニュー
 let mainMenuTemplate = [{
@@ -29,7 +31,7 @@ let mainMenuTemplate = [{
     { label: 'コメント画面表示',
     accelerator: 'CommandOrControl+C',
     click: function() {
-      showCommentWindow();
+      mainMinimize();
     }},
     { type: 'separator'},
     { label: '閉じる',
@@ -47,25 +49,25 @@ let commentMenuTemplate = [{
     { label: '画面最大化',
     accelerator: 'CommandOrControl+F',
     click: function() {
-      mainWindow.maximize();
+      commentWindow.maximize();
     }},
     { type: 'separator'},
     { label: '画面を通常の大きさに戻す',
     accelerator: 'Shift+CommandOrControl+F',
     click: function() {
-      mainWindow.unmaximize();
+      commentWindow.unmaximize();
     }},
     { type: 'separator'},
     { label: '画面を表示',
     accelerator: 'CommandOrControl+S',
     click: function() {
-      mainWindow.show();
+      commentWindow.show();
     }},
     { type: 'separator'},
     { label: 'メイン画面表示',
     accelerator: 'CommandOrControl+C',
     click: function() {
-      createMainWindow();
+      commentMinimize();
     }},
     { type: 'separator'},
     { label: '閉じる',
@@ -76,11 +78,15 @@ let commentMenuTemplate = [{
   ]
 }];
 
+// メニューのビルド
 let mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 let commentMenu = Menu.buildFromTemplate(commentMenuTemplate);
 
+
+
 // コメント弾幕が流れるメイン画面
 function createMainWindow () {
+
   Menu.setApplicationMenu(mainMenu);
 
   mainWindow = new BrowserWindow({
@@ -95,10 +101,7 @@ function createMainWindow () {
   // mainWindow.setTitle('Hedgehogs');
 
   // デベロッパーツール
-  // mainWindow.webContents.openDevTools();
-  if (commentWindow) {
-    commentWindow.hide();
-  }
+  mainWindow.webContents.openDevTools();
   
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -106,7 +109,7 @@ function createMainWindow () {
   mainWindow.on('closed', () => {
     mainWindow = null
   });
-
+  commentWindow.minimize();
 }
 
 // コメントログやコメントグラフの画面
@@ -124,15 +127,15 @@ function showCommentWindow () {
   commentWindow.loadURL(`file://${__dirname}/comment.html`);
   commentWindow.show();
   commentWindow.webContents.openDevTools();
-  mainWindow.hide();
 
   commentWindow.on('closed', () => {
     commentWindow = null
   });
 }
 
-
+app.on('ready', showCommentWindow);
 app.on('ready', createMainWindow);
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -147,6 +150,22 @@ app.on('activate', () => {
 });
 
 
+ipcMain.on('engagement', function(event, data) {
+  commentWindow.webContents.send('set_data', data);
+});
+ipcMain.on('comment', function(event, comment) {
+  commentWindow.webContents.send('comment', comment);
+});
+
+function commentMinimize(){
+  commentWindow.minimize();
+  mainWindow.show();
+  Menu.setApplicationMenu(mainMenu);
+}
 
 
-
+function mainMinimize(){
+  mainWindow.minimize();
+  commentWindow.show();
+  Menu.setApplicationMenu(commentMenu);
+}
