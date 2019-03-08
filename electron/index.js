@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const {app, BrowserWindow, globalShortcut} = require('electron');
 let win;
 
@@ -51,20 +49,6 @@ function createWindow () {
 
 }
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (win === null) {
-    createWindow();
-  }
-});
-
 // shortcats設定
 function shortcats(){
   // max_size
@@ -80,6 +64,22 @@ function shortcats(){
     win.show(); 
   })
 }
+
+
+app.on('ready', createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (win === null) {
+    createWindow();
+  }
+});
+
 
 
 
