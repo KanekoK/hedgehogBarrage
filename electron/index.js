@@ -158,14 +158,14 @@ ipcMain.on('comment', function(event, comment) {
 });
 
 function commentMinimize(){
-  // commentWindow.minimize();
+  commentWindow.minimize();
   mainWindow.show();
   Menu.setApplicationMenu(mainMenu);
 }
 
 
 function mainMinimize(){
-  // mainWindow.minimize();
+  mainWindow.minimize();
   commentWindow.show();
   Menu.setApplicationMenu(commentMenu);
 }
