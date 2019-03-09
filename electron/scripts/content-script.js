@@ -1,14 +1,17 @@
-/* global chrome, io */
+const ipcRenderer = require('electron').ipcRenderer;
+
 
 (function () {
 
   // change to your server url
-  const SERVER_URL = 'https://hedgehogs.site'
+  const SERVER_URL = 'http://localhost:2525'
 
   // const APP_ID = chrome.runtime.id
   // const APP_VERSION = chrome.runtime.getManifest().version
 
   let socket = null
+  let heart_count = 0
+  let good_count = 0
 
   function connect (comment) {
     //  コメントON/OFFでコネクトを切り替える
@@ -16,12 +19,10 @@
       socket.disconnect();
       socket = io.connect(SERVER_URL, { 'forceNew': true })
       socket.on('like', handleLike)
-      socket.on("count",handleLikeCount)
     } else {
       socket = io.connect(SERVER_URL, { 'forceNew': true })
       socket.on('comment', handleComment)
       socket.on('like', handleLike)
-      socket.on("count",handleLikeCount)
     }
 
     // console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
@@ -87,9 +88,11 @@
     t.animate(effect, timing).onfinish = function () {
       document.body.removeChild(t)
     }
+    ipcRenderer.send('comment', msg);
   }
 
   function handleLike (msg) {
+  
     const image = msg.image || 'thumb' || 'heart'
     const url = msg.url || `images/${image}.png`
 
@@ -124,16 +127,29 @@
         document.body.removeChild(t)
       }
     })
-
     t.src = url
+
+    handleLikeCount(msg.image)
   }
 
 
-  function handleLikeCount(count){
-    const heart_count = document.getElementById("heart_count")
-    const good_count = document.getElementById("good_count")
-    heart_count.innerHTML = count.heart_count
-    good_count.innerHTML = count.good_count
+  function handleLikeCount(msg){
+    const domHeartCount = document.getElementById("heart_count")
+    const domGoodCount = document.getElementById("good_count")
+    if (msg == "thumb"){
+      good_count++
+    }
+    if (msg == "heart"){
+      heart_count++
+    }
+    var count ={
+      "good_count":good_count,
+      "heart_count":heart_count
+    }
+    data = {'heart': count.heart_count, 'good': count.good_count}
+    ipcRenderer.send('engagement', data)
+    domHeartCount.innerHTML = count.heart_count
+    domGoodCount.innerHTML = count.good_count
   }
 
   let comment = true;
@@ -150,3 +166,5 @@
     disconnect: disconnect
   }
 })()
+
+

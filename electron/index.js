@@ -1,29 +1,95 @@
 'use strict';
 
-const {app, BrowserWindow, globalShortcut} = require('electron');
-let win;
+const {app, BrowserWindow, Menu, ipcMain} = require('electron');
+let mainWindow;
+let commentWindow;
+
+
 
 // メニュー
+let mainMenuTemplate = [{
+  label: 'Hedgehogs',
+  submenu: [
+    { label: '画面最大化',
+    accelerator: 'CommandOrControl+F',
+    click: function() {
+      mainWindow.maximize();
+    }},
+    { type: 'separator'},
+    { label: '画面を通常の大きさに戻す',
+    accelerator: 'Shift+CommandOrControl+F',
+    click: function() {
+      mainWindow.unmaximize();
+    }},
+    { type: 'separator'},
+    { label: '画面を表示',
+    accelerator: 'CommandOrControl+S',
+    click: function() {
+      mainWindow.show();
+    }},
+    { type: 'separator'},
+    { label: 'コメント画面表示',
+    accelerator: 'CommandOrControl+C',
+    click: function() {
+      mainMinimize();
+    }},
+    { type: 'separator'},
+    { label: '閉じる',
+    accelerator: 'CommandOrControl+Q',
+    click: function() {
+      app.quit();
+    }},
+  ]
+}];
 
-// const editMenu = [
-//   {
-//       label: 'Edit',
-//       submenu: [
-//           {
-//             label: 'Comment ON',
-//             // click: function() { comment = true; }
-//           },
-//           {
-//             label: 'Comment OFF',
-//             // click: function() { comment = false; }
-//           },
-//       ]
-//   }
-// ];
+// メニュー
+let commentMenuTemplate = [{
+  label: 'Hedgehogs',
+  submenu: [
+    { label: '画面最大化',
+    accelerator: 'CommandOrControl+F',
+    click: function() {
+      commentWindow.maximize();
+    }},
+    { type: 'separator'},
+    { label: '画面を通常の大きさに戻す',
+    accelerator: 'Shift+CommandOrControl+F',
+    click: function() {
+      commentWindow.unmaximize();
+    }},
+    { type: 'separator'},
+    { label: '画面を表示',
+    accelerator: 'CommandOrControl+S',
+    click: function() {
+      commentWindow.show();
+    }},
+    { type: 'separator'},
+    { label: 'メイン画面表示',
+    accelerator: 'CommandOrControl+C',
+    click: function() {
+      commentMinimize();
+    }},
+    { type: 'separator'},
+    { label: '閉じる',
+    accelerator: 'CommandOrControl+Q',
+    click: function() {
+      app.quit();
+    }},
+  ]
+}];
 
-function createWindow () {
+// メニューのビルド
+let mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
+let commentMenu = Menu.buildFromTemplate(commentMenuTemplate);
 
-  win = new BrowserWindow({
+
+
+// コメント弾幕が流れるメイン画面
+function createMainWindow () {
+
+  Menu.setApplicationMenu(mainMenu);
+
+  mainWindow = new BrowserWindow({
     // "fullscreen": true,
     // "itleBarStyle": "hidden",
     "transparent": true,
@@ -32,41 +98,44 @@ function createWindow () {
     "fullscreenable":false,
     "frame":false
   });
-  // win.setTitle('Hedgehogs');
+  // mainWindow.setTitle('Hedgehogs');
 
   // デベロッパーツール
-  // win.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
+  
 
-  // const menu = Menu.buildFromTemplate(editMenu);
-  // Menu.setApplicationMenu(menu);
+  mainWindow.loadURL(`file://${__dirname}/index.html`);
 
-  win.loadURL(`file://${__dirname}/index.html`);
-  shortcuts()
-
-  win.on('closed', () => {
-    win = null
+  mainWindow.on('closed', () => {
+    mainWindow = null
   });
-
+  commentWindow.minimize();
 }
 
-// shortcuts設定
-function shortcuts(){
-  // max_size
-  globalShortcut.register('CommandOrControl+F', () => {
-    win.maximize()
-  })
-  // default sizeに戻す
-  globalShortcut.register('Shift+CommandOrControl+F', () => {
-    win.unmaximize()
-  })
-  // show
-  globalShortcut.register('CommandOrControl+S', () => {
-    win.show(); 
-  })
+// コメントログやコメントグラフの画面
+function showCommentWindow () {
+  Menu.setApplicationMenu(commentMenu);
+  commentWindow = new BrowserWindow({
+    // "fullscreen": true,
+    // "itleBarStyle": "hidden",
+    // "transparent": true,
+    // "alwaysOnTop": true,
+    // "nodeIntegration": false,
+    // "fullscreenable":false,
+    // "frame":false
+  });
+  commentWindow.loadURL(`file://${__dirname}/comment.html`);
+  commentWindow.show();
+  commentWindow.webContents.openDevTools();
+
+  commentWindow.on('closed', () => {
+    commentWindow = null
+  });
 }
 
+app.on('ready', showCommentWindow);
+app.on('ready', createMainWindow);
 
-app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -75,12 +144,28 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-  if (win === null) {
-    createWindow();
+  if (mainWindow === null) {
+    createMainWindow();
   }
 });
 
 
+ipcMain.on('engagement', function(event, data) {
+  commentWindow.webContents.send('set_data', data);
+});
+ipcMain.on('comment', function(event, comment) {
+  commentWindow.webContents.send('comment', comment);
+});
+
+function commentMinimize(){
+  commentWindow.minimize();
+  mainWindow.show();
+  Menu.setApplicationMenu(mainMenu);
+}
 
 
-
+function mainMinimize(){
+  mainWindow.minimize();
+  commentWindow.show();
+  Menu.setApplicationMenu(commentMenu);
+}
