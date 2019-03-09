@@ -101,7 +101,7 @@ function createMainWindow () {
   // mainWindow.setTitle('Hedgehogs');
 
   // デベロッパーツール
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
@@ -158,14 +158,14 @@ ipcMain.on('comment', function(event, comment) {
 });
 
 function commentMinimize(){
-  commentWindow.minimize();
+  // commentWindow.minimize();
   mainWindow.show();
   Menu.setApplicationMenu(mainMenu);
 }
 
 
 function mainMinimize(){
-  mainWindow.minimize();
+  // mainWindow.minimize();
   commentWindow.show();
   Menu.setApplicationMenu(commentMenu);
 }

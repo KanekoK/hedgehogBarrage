@@ -12,6 +12,10 @@ body {
   margin: 10px auto;
 }
 
+.page-wrapper {
+  height: 100%;
+}
+
 li {
   list-style: none;
 }
@@ -33,12 +37,13 @@ li {
 .comment-list {
   float: right;
   width: 30%;
+  height: 820px;
 }
 
 .comment-content {
   border: 3px solid #e0e0e0;
-  height: 700px;
   overflow: scroll;
+  height: 100%;
 }
 
 .comment-list p {
