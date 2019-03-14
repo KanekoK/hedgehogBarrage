@@ -31,6 +31,10 @@ label.btn, .icon-btn button {
   width: 75px;
 }
 
+.container .form-horizontal {
+  margin: 16px;
+}
+
 .form-group .input-group-btn button[type=submit] {
   padding: 6px 35px;
   color: #e0e0e0;
