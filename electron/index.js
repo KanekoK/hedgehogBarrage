@@ -126,7 +126,7 @@ function showCommentWindow () {
   });
   commentWindow.loadURL(`file://${__dirname}/comment.html`);
   commentWindow.show();
-  commentWindow.webContents.openDevTools();
+  // commentWindow.webContents.openDevTools();
 
   commentWindow.on('closed', () => {
     commentWindow = null
