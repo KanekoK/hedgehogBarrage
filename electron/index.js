@@ -39,6 +39,23 @@ let mainMenuTemplate = [{
     click: function() {
       app.quit();
     }},
+    { type: 'separator'},
+    { label: 'Toggle &Developer Tools',
+    accelerator: 'Alt+CommandOrControl+I',
+    click: function() { mainWindow.toggleDevTools();
+    }},
+    { type: 'separator'},
+    { label: '枠線を透過',
+    accelerator: 'CommandOrControl+E',
+    click: function() {
+      mainWindow.webContents.send('border_transparent');
+    }},
+    { type: 'separator'},
+    { label: '枠線を可視化',
+    accelerator: 'Shift+CommandOrControl+E',
+    click: function() {
+      mainWindow.webContents.send('border_visual');
+    }},
   ]
 }];
 
@@ -75,6 +92,11 @@ let commentMenuTemplate = [{
     click: function() {
       app.quit();
     }},
+    { type: 'separator'},
+    { label: 'Toggle &Developer Tools',
+    accelerator: 'Alt+CommandOrControl+I',
+    click: function() { mainWindow.toggleDevTools();
+    }},
   ]
 }];
 
@@ -96,7 +118,7 @@ function createMainWindow () {
     "alwaysOnTop": true,
     "nodeIntegration": false,
     "fullscreenable":false,
-    "frame":false
+    "frame":false,
   });
   // mainWindow.setTitle('Hedgehogs');
 

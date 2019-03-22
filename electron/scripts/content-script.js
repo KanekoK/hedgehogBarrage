@@ -41,15 +41,17 @@ const ipcRenderer = require('electron').ipcRenderer;
     return Math.floor(value * Math.random())
   }
 
-  // function checkEnabled () {
-  //   return new Promise(function (resolve, reject) {
-  //     chrome.runtime.sendMessage({
-  //       message: 'checkEnabled'
-  //     }, function (response) {
-  //       resolve(response.enabled)
-  //     })
-  //   })
-  // }
+  ipcRenderer.on('border_transparent', function() {
+    let border = document.body.style;
+    border.boxShadow = "0 0 0 0";
+    document.getElementById('menu').style.display = "none";
+  })
+
+  ipcRenderer.on('border_visual', function() {
+    let border = document.body.style;
+    border.boxShadow = "0 0 0 5px rgb(15, 77, 31) inset";
+    document.getElementById('menu').style.display = "block";
+  })
 
   function handleComment (msg) {
     const color = msg.color || '#000000'
