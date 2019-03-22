@@ -39,13 +39,6 @@ let mainMenuTemplate = [{
     click: function() {
       app.quit();
     }},
-    { type: 'hide_line'},
-    { label: '枠線を消す',
-    accelerator: 'CommandOrControl+O',
-    click: function() {
-      // body.style.boxShadow = “0 0 0 0”;
-      mainWindow.webContents.excuteJavaScript('document.getElementbyTagname("body")')
-    }},
   ]
 }];
 
