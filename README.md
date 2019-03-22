@@ -14,6 +14,7 @@ LT、勉強会の登壇者と聞く側のインタラクティブ性を高める
 
 ## アプリのダウンロードページ
 
+<a href="http://hedgehogs.site/HedgehogsBarrage/" download>リンクテキスト</a>
 https://github.com/KanekoK/hedgehogBarrageApp
 
 ***
