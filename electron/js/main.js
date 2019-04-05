@@ -2,41 +2,12 @@ const ipcRenderer = require('electron').ipcRenderer;
 
 moment.locale('ja');
 
-
-let ctx = document.getElementById("myChart").getContext('2d');
-ctx.canvas.height = 250;
-
-let type = 'line';
-
-let comments = [];
-let times = [];
-
 let heartCount = 0;
 let goodCount = 0;
 ipcRenderer.on('set_data', function(event, data) {
     heartCount = data.heart
     goodCount = data.good
 });
-
-let data = {
-    labels: times,
-    datasets: [{
-      label: 'いいね数',
-      borderColor: 'rgb(54, 162, 235)',
-      backgroundColor: 'rgba(54, 162, 235, 0.5)',
-      lineTension: 0,
-      data_type: 'good',
-    },
-    {
-      label: 'ハート数',
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      lineTension: 0,
-      data_type: 'like',
-    },
-  ]
-
-};
 
 function engagement(data_type) {
   if (data_type == "good") {
@@ -48,51 +19,127 @@ function engagement(data_type) {
   }
 }
 
-let options = {
-  scales: {
-    xAxes: [{
-      scaleLabel: {
-        display: true,
-        fontColor: '#e0e0e0',
-      },
-      type: 'realtime',
-      realtime: {
-        onRefresh: function(chart) {
-          chart.data.datasets.forEach(function(dataset) {
-            dataset.data.push({
-              x: Date.now(),
-              y: engagement(dataset.data_type),
-            });
-          });
-        },
-        delay: 2000,
-      }
-    }],
-    yAxes: [{
-      ticks: {
-        suggestedMax: 50,
-        min: 0
-        // stepSize: 20
-      }
-    }]
-  },
-  title: {
-    display: false,
-    text: 'コメント数'
-  },
-  plugins: {
-    streaming: {
-      duration: 50000,
-    }
-  }
-};
+let goodData = []
+let likeData = []
 
-let myChart = new Chart(ctx, {
-    type: type,
-    data: data,
-    options: options
+for (var i = 0; i < 1000; i++) {
+goodData.push({
+  name: "aaa",
+  value: [
+    "2020/10/11",
+    10
+  ]
 });
 
+likeData.push({
+  name: "Like",
+  value: [
+    "2020/10/11",
+    20
+  ]
+});
+}
+
+
+// let data = {
+//     labels: times,
+//     datasets: [{
+//       label: 'いいね数',
+//       borderColor: 'rgb(54, 162, 235)',
+//       backgroundColor: 'rgba(54, 162, 235, 0.5)',
+//       lineTension: 0,
+//       data_type: 'good',
+//     },
+//     {
+//       label: 'ハート数',
+//       borderColor: 'rgb(255, 99, 132)',
+//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+//       lineTension: 0,
+//       data_type: 'like',
+//     },
+//   ]
+// };
+let time = moment().format('HH:mm:ss');
+
+
+//   return {
+//       name: time.toString(),
+//       value: [
+//           [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'),
+//           10
+//       ]
+//   }
+// }
+
+var myChart = echarts.init(document.getElementById('main'));
+
+let option = {
+  title: {
+      text: 'エンゲージグラフ'
+  },
+  tooltip: {
+      trigger: 'axis',
+      formatter: function (params) {
+          params = params[0];
+          var date = new Date(params.name);
+          return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' : ' + params.value[1];
+      },
+      axisPointer: {
+          animation: false
+      }
+  },
+  xAxis: {
+      type: 'time',
+      splitLine: {
+          show: false
+      }
+  },
+  yAxis: {
+      type: 'value',
+      boundaryGap: [0, '100%'],
+      splitLine: {
+          show: false
+      }
+  },
+  series: [{
+      name: 'Good',
+      type: 'line',
+      showSymbol: false,
+      hoverAnimation: false,
+      data: goodData,
+      animationDelay: function (idx) {
+          return 1
+      }
+  },{
+    name: 'Like',
+    type: 'line',
+    showSymbol: false,
+    hoverAnimation: false,
+    data: likeData,
+    animationDelay: function (idx) {
+        return 1
+    }
+  },
+  ]
+};
+
+setInterval(function () {
+
+  for (var i = 0; i < 1; i++) {
+      goodData.push(goodData);
+      likeData.push(likeData);
+  }
+
+  myChart.setOption({
+      series: [{
+        data: goodData
+      },{
+        data: likeData
+      }]
+  });
+}, 300);
+
+myChart.setOption(option);
 
 // ======== //
 
