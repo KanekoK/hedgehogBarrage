@@ -28,5 +28,5 @@ https://github.com/KanekoK/hedgehogBarrageApp
 | Command + S | 画面を表示 |
 | Command + C | コメント画面表示 |
 | Command + Alt + I | ディベロッパーツール |
-| Command + E | ディベロッパーツール |
-| Command + Shift + E | ディベロッパーツール |
+| Command + E | 枠線を透過 |
+| Command + Shift + E | 枠線を可視化 |
