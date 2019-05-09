@@ -8,6 +8,18 @@
   let socket = null
 
   function connect () {
+    const parent_dom = document.createElement('div')
+    parent_dom.setAttribute('id', 'barrage')
+    parent_dom.style.position = 'fixed'
+    parent_dom.style.top = '0'
+    parent_dom.style.height = '100%'
+    parent_dom.style.left = '0'
+    parent_dom.style.width = '100%'
+    parent_dom.style.zIndex = 9999999999999999999
+    parent_dom.style.pointerEvents = 'none'
+
+    document.body.appendChild(parent_dom)
+
     if (socket) return
 
     socket = io.connect(SERVER_URL, { 'forceNew': true })
@@ -15,6 +27,7 @@
     socket.on('like', handleLike)
 
     console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
+    document.body.appendChild(parent_dom)
   }
 
   function disconnect () {
@@ -45,9 +58,9 @@
     const shadow = msg.shadow || '#ffffff'
     const size = msg.size || 56
 
-    const t = document.createElement('div')
+    const t = document.createElement('p')
 
-    t.style.position = 'fixed'
+    t.style.position = 'absolute'
     t.style.left = window.innerWidth + 'px'
     t.style.top = rand(window.innerHeight - 40) + 'px'
     t.style.fontSize = size + 'pt'
@@ -55,11 +68,11 @@
     t.style.color = color
     t.style.textShadow = `-2px -2px 0px ${shadow}, -2px 2px 0px ${shadow}, 2px -2px 0px ${shadow}, 2px 2px 0px ${shadow}`
     t.style.whiteSpace = 'pre'
-    t.style.zIndex = 2147483647
+    t.style.zIndex = 99999999999999999
 
     t.innerText = msg.body
 
-    document.body.appendChild(t)
+    document.getElementById('barrage').appendChild(t)
 
     const effect = [{
       left: window.innerWidth + 'px'
@@ -75,12 +88,12 @@
     t.style.top = rand(window.innerHeight - t.offsetHeight) + 'px'
 
     t.animate(effect, timing).onfinish = function () {
-      document.body.removeChild(t)
+      // document.body.removeChild(t)
     }
+    console.log("comment")
   }
 
   function handleLike (msg) {
-    console.log("aaaa")
     const image = msg.image || 'thumb' || 'heart'
     const url = msg.url || `chrome-extension://${APP_ID}/images/${image}.png`
 
@@ -90,7 +103,7 @@
       t.style.position = 'fixed'
       t.style.left = rand(window.innerWidth) - t.width / 2 + 'px'
       t.style.top = rand(window.innerHeight) - t.height / 2 + 'px'
-      t.style.zIndex = 2147483647
+      t.style.zIndex = 99999999999999999
       t.style.opacity = 0.0
 
       document.body.appendChild(t)
@@ -117,6 +130,8 @@
     })
 
     t.src = url
+
+    console.log("like")
   }
 
   checkEnabled()
