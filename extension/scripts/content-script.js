@@ -1,7 +1,7 @@
 /* global chrome, io */
 (function () {
   // change to your server url
-  const SERVER_URL = 'https://hedgehogs.site'
+  const SERVER_URL = 'https://hedgehogs.site/'
   const APP_ID = chrome.runtime.id
   const APP_VERSION = chrome.runtime.getManifest().version
 
@@ -46,6 +46,7 @@
     const size = msg.size || 56
 
     const t = document.createElement('div')
+    
 
     t.style.position = 'fixed'
     t.style.left = window.innerWidth + 'px'
@@ -58,8 +59,13 @@
     t.style.zIndex = 2147483647
 
     t.innerText = msg.body
-
-    document.body.appendChild(t)
+    if (document.getElementsByClassName("punch-full-screen-element").length){
+      document.getElementsByClassName("punch-full-screen-element")[0].appendChild(t)
+    }
+    else{
+      document.body.appendChild(t)
+    }
+    
 
     const effect = [{
       left: window.innerWidth + 'px'
@@ -80,7 +86,6 @@
   }
 
   function handleLike (msg) {
-    console.log("aaaa")
     const image = msg.image || 'thumb' || 'heart'
     const url = msg.url || `chrome-extension://${APP_ID}/images/${image}.png`
 
@@ -93,7 +98,14 @@
       t.style.zIndex = 2147483647
       t.style.opacity = 0.0
 
-      document.body.appendChild(t)
+      // document.body.appendChild(t)
+      if (document.getElementsByClassName("punch-full-screen-element").length){
+        document.getElementsByClassName("punch-full-screen-element")[0].appendChild(t)
+      }
+      else{
+        document.body.appendChild(t)
+      }
+
 
       const effect = [{
         opacity: 0.0,
