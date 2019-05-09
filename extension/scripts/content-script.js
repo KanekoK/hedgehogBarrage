@@ -58,12 +58,8 @@
     const shadow = msg.shadow || '#ffffff'
     const size = msg.size || 56
 
-<<<<<<< HEAD
     const t = document.createElement('div')
     
-=======
-    const t = document.createElement('p')
->>>>>>> a9388d3de9e82b02395b1474a2b1341a7c2715f8
 
     t.style.position = 'absolute'
     t.style.left = window.innerWidth + 'px'
@@ -76,7 +72,6 @@
     t.style.zIndex = 99999999999999999
 
     t.innerText = msg.body
-<<<<<<< HEAD
     if (document.getElementsByClassName("punch-full-screen-element").length){
       document.getElementsByClassName("punch-full-screen-element")[0].appendChild(t)
     }
@@ -84,10 +79,6 @@
       document.body.appendChild(t)
     }
     
-=======
-
-    document.getElementById('barrage').appendChild(t)
->>>>>>> a9388d3de9e82b02395b1474a2b1341a7c2715f8
 
     const effect = [{
       left: window.innerWidth + 'px'
