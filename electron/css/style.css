@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   -webkit-app-region: drag;
   -webkit-user-select: none;
@@ -42,7 +42,7 @@ p {
 .icon {
   width: 12px;
   height: 12px;
-  padding-right: 10px; 
+  padding-right: 10px;
 }
 
 .title {

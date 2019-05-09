@@ -1,7 +1,7 @@
 /* global chrome, io */
 (function () {
   // change to your server url
-  const SERVER_URL = 'http://localhost:2525'
+  const SERVER_URL = 'https://hedgehogs.site'
   const APP_ID = chrome.runtime.id
   const APP_VERSION = chrome.runtime.getManifest().version
 
@@ -80,6 +80,7 @@
   }
 
   function handleLike (msg) {
+    console.log("aaaa")
     const image = msg.image || 'thumb' || 'heart'
     const url = msg.url || `chrome-extension://${APP_ID}/images/${image}.png`
 

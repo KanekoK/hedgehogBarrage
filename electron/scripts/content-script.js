@@ -44,12 +44,14 @@ const ipcRenderer = require('electron').ipcRenderer;
   ipcRenderer.on('border_transparent', function() {
     let border = document.body.style;
     border.boxShadow = "0 0 0 0";
+    border.backgroundColor = "transparent";
     document.getElementById('menu').style.display = "none";
   })
 
   ipcRenderer.on('border_visual', function() {
     let border = document.body.style;
     border.boxShadow = "0 0 0 5px rgb(15, 77, 31) inset";
+    border.backgroundColor = "rgba(0, 0, 0, 0.5)";
     document.getElementById('menu').style.display = "block";
   })
 
@@ -94,7 +96,7 @@ const ipcRenderer = require('electron').ipcRenderer;
   }
 
   function handleLike (msg) {
-  
+
     const image = msg.image || 'thumb' || 'heart'
     const url = msg.url || `images/${image}.png`
 

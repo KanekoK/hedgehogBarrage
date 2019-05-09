@@ -119,12 +119,13 @@ function createMainWindow () {
     "nodeIntegration": false,
     "fullscreenable":false,
     "frame":false,
+    maxHeight: 800,
   });
   // mainWindow.setTitle('Hedgehogs');
 
   // デベロッパーツール
   // mainWindow.webContents.openDevTools();
-  
+
 
   mainWindow.loadURL(`file://${__dirname}/index.html`);
 
