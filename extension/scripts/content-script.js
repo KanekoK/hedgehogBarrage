@@ -8,6 +8,18 @@
   let socket = null
 
   function connect () {
+    const parent_dom = document.createElement('div')
+    parent_dom.setAttribute('id', 'barrage')
+    parent_dom.style.position = 'fixed'
+    parent_dom.style.top = '0'
+    parent_dom.style.height = '100%'
+    parent_dom.style.left = '0'
+    parent_dom.style.width = '100%'
+    parent_dom.style.zIndex = 9999999999999999999
+    parent_dom.style.pointerEvents = 'none'
+
+    document.body.appendChild(parent_dom)
+
     if (socket) return
 
     socket = io.connect(SERVER_URL, { 'forceNew': true })
@@ -15,6 +27,7 @@
     socket.on('like', handleLike)
 
     console.log(`Hedgehogs Barrage v${APP_VERSION}: connect to ${SERVER_URL}`)
+    document.body.appendChild(parent_dom)
   }
 
   function disconnect () {
@@ -45,10 +58,14 @@
     const shadow = msg.shadow || '#ffffff'
     const size = msg.size || 56
 
+<<<<<<< HEAD
     const t = document.createElement('div')
     
+=======
+    const t = document.createElement('p')
+>>>>>>> a9388d3de9e82b02395b1474a2b1341a7c2715f8
 
-    t.style.position = 'fixed'
+    t.style.position = 'absolute'
     t.style.left = window.innerWidth + 'px'
     t.style.top = rand(window.innerHeight - 40) + 'px'
     t.style.fontSize = size + 'pt'
@@ -56,9 +73,10 @@
     t.style.color = color
     t.style.textShadow = `-2px -2px 0px ${shadow}, -2px 2px 0px ${shadow}, 2px -2px 0px ${shadow}, 2px 2px 0px ${shadow}`
     t.style.whiteSpace = 'pre'
-    t.style.zIndex = 2147483647
+    t.style.zIndex = 99999999999999999
 
     t.innerText = msg.body
+<<<<<<< HEAD
     if (document.getElementsByClassName("punch-full-screen-element").length){
       document.getElementsByClassName("punch-full-screen-element")[0].appendChild(t)
     }
@@ -66,6 +84,10 @@
       document.body.appendChild(t)
     }
     
+=======
+
+    document.getElementById('barrage').appendChild(t)
+>>>>>>> a9388d3de9e82b02395b1474a2b1341a7c2715f8
 
     const effect = [{
       left: window.innerWidth + 'px'
@@ -81,8 +103,9 @@
     t.style.top = rand(window.innerHeight - t.offsetHeight) + 'px'
 
     t.animate(effect, timing).onfinish = function () {
-      document.body.removeChild(t)
+      // document.body.removeChild(t)
     }
+    console.log("comment")
   }
 
   function handleLike (msg) {
@@ -95,7 +118,7 @@
       t.style.position = 'fixed'
       t.style.left = rand(window.innerWidth) - t.width / 2 + 'px'
       t.style.top = rand(window.innerHeight) - t.height / 2 + 'px'
-      t.style.zIndex = 2147483647
+      t.style.zIndex = 99999999999999999
       t.style.opacity = 0.0
 
       // document.body.appendChild(t)
@@ -129,6 +152,8 @@
     })
 
     t.src = url
+
+    console.log("like")
   }
 
   checkEnabled()

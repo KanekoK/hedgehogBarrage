@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Hedgehogs Barrage",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Chrome上にコメント弾幕を流すことができます。",
 
   "icons": {
